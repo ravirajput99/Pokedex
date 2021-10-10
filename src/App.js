@@ -55,25 +55,23 @@ function PokemonPage() {
           setLoading(false);
           setIsError(true);
         });
-
-      if (isError) {
-        return (
-          <div
-            style={{
-              display: "flex",
-              height: "100vh",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <h1>There is some error at your end</h1>
-          </div>
-        );
-      }
     },
     [name]
   );
-
+  if (isError) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          height: "100vh",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <h1>There is some error at your end</h1>
+      </div>
+    );
+  }
   if (loading) {
     return (
       <div
