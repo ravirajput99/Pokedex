@@ -1,5 +1,5 @@
 import { pokemons } from "../pokemonList";
-import sampleSize from "lodash/sampleSize";
+// import sampleSize from "lodash/sampleSize";
 import { Link } from "react-router-dom";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import { Button } from "@mui/material";

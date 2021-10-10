@@ -14,7 +14,9 @@ function getPokemonImageFromData(data) {
   const officialArtWork = other["official-artwork"];
   const defaultImage =
     "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQM9xm7mMLuvlFKRXJPRBoY5hZfJRBzqohjwg&usqp=CAU";
-  return officialArtWork["front_default"];
+  return officialArtWork["front_default"]
+    ? officialArtWork["front_default"]
+    : defaultImage;
 }
 
 function Pokemon(props) {
@@ -41,32 +43,36 @@ function PokemonPage() {
   const [loading, setLoading] = useState(true);
   const [pokemonData, setPokemonData] = useState(null);
   const [isError, setIsError] = useState(false);
-  useEffect(function () {
-    PokeApi.getPokemonByName(params.name)
-      .then((data) => {
-        setLoading(false);
-        setPokemonData(data);
-      })
-      .catch(() => {
-        setLoading(false);
-        setIsError(true);
-      });
+  const name = params.name;
+  useEffect(
+    function () {
+      PokeApi.getPokemonByName(name)
+        .then((data) => {
+          setLoading(false);
+          setPokemonData(data);
+        })
+        .catch(() => {
+          setLoading(false);
+          setIsError(true);
+        });
 
-    if (isError) {
-      return (
-        <div
-          style={{
-            display: "flex",
-            height: "100vh",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <h1>There is some error at your end</h1>
-        </div>
-      );
-    }
-  }, []);
+      if (isError) {
+        return (
+          <div
+            style={{
+              display: "flex",
+              height: "100vh",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <h1>There is some error at your end</h1>
+          </div>
+        );
+      }
+    },
+    [name]
+  );
 
   if (loading) {
     return (
